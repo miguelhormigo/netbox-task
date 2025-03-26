@@ -48,7 +48,7 @@ class DeviceReport(Script):
                 devices = devices.filter(rack=data["rack"])
 
             if not devices.exists():
-                self.log_warning("⚠️ No devices found matching the filters.")
+                self.log_warning("⚠️ No devices found matching the filters.", type(devices))
                 return "No devices found."
 
             # Generate YAML Output

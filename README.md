@@ -57,6 +57,14 @@ Enter http://<WSL-IP>:8000/ in a browser, replacing <WSL-IP> with the actual IP 
 git clone https://github.com/miguelhormigo/netbox-task.git
 cd netbox-task
 pip install -r requirements.txt
+```
+
+1. Generate an API token from Netbox web UI by clicking on the username at the top right and then API Tokens. Click on Add a Token and then on Create.
+2. Copy the API token and create a .env file like the following, replacing <<API_TOKEN>> with the token:
+NETBOX_URL=http://localhost:8000/api
+NETBOX_TOKEN=<<API_TOKEN>>
+3. Run the data initialization script with the following command:
+```bash
 python3 scripts/netbox_initial_data.py
 ```
 
@@ -65,3 +73,10 @@ python3 scripts/netbox_initial_data.py
 1. Add the git repository to Netbox. Go to Operations > Integrations > Data Sources, click Add, select Git as Type and add the repository URL: https://github.com/miguelhormigo/netbox-task.git. Click Create.
 2. Access Customization > Scripts, click Add, select the git repository as data source and then scripts/netbox_device_report.py as file. Click Create.
 3. Once the script is loaded, access it by clicking the script name and run the script providing the desired parameters.
+
+### 5️⃣ **Query device count via NetBox API**
+
+To get the device count by status, run the following command:
+```bash
+python3 scripts/netbox_device_count.py
+```

@@ -1,11 +1,16 @@
 import requests
+import os
 import logging
+from dotenv import load_dotenv
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-NETBOX_URL = "http://localhost:8000/api"
-TOKEN = "61fd8f8277d084349a835c51e4aff6e8f2922ea9"
+# Load environment variables from .env
+load_dotenv()
+
+NETBOX_URL = os.getenv("NETBOX_URL", "http://localhost:8000/api")
+TOKEN = os.getenv("NETBOX_TOKEN")
 
 HEADERS = {
     "Authorization": f"Token {TOKEN}",
