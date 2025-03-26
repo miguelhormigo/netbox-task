@@ -59,3 +59,9 @@ cd netbox-task
 pip install -r requirements.txt
 python3 scripts/netbox_initial_data.py
 ```
+
+### 4️⃣ **Run the custom script from the Netbox web UI**
+
+1. Add the git repository to Netbox. Go to Operations > Integrations > Data Sources, click Add, select Git as Type and add the repository URL: https://github.com/miguelhormigo/netbox-task.git. Click Create.
+2. Access Customization > Scripts, click Add, select the git repository as data source and then scripts/netbox_device_report.py as file. Click Create.
+3. Once the script is loaded, access it by clicking the script name and run the script providing the desired parameters.
