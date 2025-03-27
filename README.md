@@ -80,3 +80,10 @@ To get the device count by status, run the following command:
 ```bash
 python3 scripts/netbox_device_count.py
 ```
+
+### 6️⃣️ **Run the tests**
+
+Run the tests with the following command:
+```bash
+pytest
+```
