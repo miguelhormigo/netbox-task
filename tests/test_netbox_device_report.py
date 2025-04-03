@@ -71,10 +71,13 @@ def test_device_report_success(mock_device_model, mock_devices):
     data = {"status": "active", "site": "Site 1", "rack": None}
     result = script.run(data, commit=True)
 
-    expected_yaml = yaml.dump(
-        ["Site Site A (Rack 1): #1 - Device 1"],
-        default_flow_style=False, allow_unicode=True
-    )
+    expected_output = {
+        "Site A": {
+            "Rack 1": ["Device 1"]
+        }
+    }
+    expected_yaml = yaml.dump(expected_output, default_flow_style=False, allow_unicode=True)
+    
     assert result == expected_yaml
 
 @patch("scripts.netbox_device_report.Device.objects")

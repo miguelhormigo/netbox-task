@@ -51,14 +51,25 @@ class DeviceReport(Script):
                 self.log_warning("⚠️ No devices found matching the filters.", type(devices))
                 return "No devices found."
 
-            # Generate YAML Output
-            output = []
+            # Structure data for YAML output
+            structured_data = {}
+
             for device in devices:
                 site_name = device.site.name if device.site else "Unknown"
                 rack_name = device.rack.name if device.rack else "No Rack"
-                output.append(f"Site {site_name} ({rack_name}): #{device.id} - {device.name}")
 
-            yaml_output = yaml.dump(output, default_flow_style=False, allow_unicode=True)
+                # Ensure site exists in dict
+                if site_name not in structured_data:
+                    structured_data[site_name] = {}
+
+                # Ensure rack exists in site
+                if rack_name not in structured_data[site_name]:
+                    structured_data[site_name][rack_name] = []
+                
+                structured_data[site_name][rack_name].append(device.name)
+
+            # Convert to YAML
+            yaml_output = yaml.dump(structured_data, default_flow_style=False, allow_unicode=True)
             self.log_success("✅ YAML report generated successfully.")
             self.log_info(yaml_output)
 
@@ -71,7 +82,6 @@ class DeviceReport(Script):
         except Exception as e:
             error_msg = f"❌ Error generating device report: {str(e)}"
             self.log_failure(error_msg)
-            return error_msg
 
     # def save_to_pdf(self, yaml_data, filename="/opt/netbox/netbox/media/netbox_devices.pdf"):
     #     """Save YAML output to a PDF file"""
